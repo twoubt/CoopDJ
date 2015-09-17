@@ -8,14 +8,20 @@ scalacOptions in Compile += "-feature"
 
 proguardCache in Android ++= Seq("org.scaloid")
 
-proguardOptions in Android ++= Seq("-dontobfuscate", "-dontoptimize", "-keepattributes Signature", "-printseeds target/seeds.txt", "-printusage target/usage.txt"
-  , "-dontwarn scala.collection.**" // required from Scala 2.11.4
-  , "-dontwarn org.scaloid.**" // this can be omitted if current Android Build target is android-16
+proguardOptions in Android ++= Seq("-dontobfuscate", "-dontoptimize", "-keepattributes Signature", "-printseeds target/seeds.txt", "-printusage target/usage.txt",
+	"-dontwarn scala.collection.**", // required from Scala 2.11.4
+	"-dontwarn org.scaloid.**", // this can be omitted if current Android Build target is android-16
+    "-keepclasseswithmembernames,includedescriptorclasses class * { native <methods>; }"
 )
 
 libraryDependencies += "org.scaloid" %% "scaloid" % "4.0"
+localAars in Android += baseDirectory.value / "lib" / "spotify-auth-1.0.0-beta10.aar"
+localAars in Android += baseDirectory.value / "lib" / "spotify-player-1.0.0-beta10.aar"
 
 run <<= run in Android
 install <<= install in Android
 
 retrolambdaEnable in Android := false // turning it on significantly increases the build time
+
+libraryDependencies += "org.scalatest" %% "scalatest" % "2.2.4"
+libraryDependencies += "org.scalamock" %% "scalamock-scalatest-support" % "3.2"
