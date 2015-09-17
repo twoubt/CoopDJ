@@ -1,3 +1,13 @@
 language: scala
 scala:
    - 2.11.2
+
+install:
+	android update project -p /home/travis/build/emptyflash/CoopDJ
+   
+language: android
+android:
+  components:
+    - build-tools-21.1.1
+    - android-121
+    - extra
