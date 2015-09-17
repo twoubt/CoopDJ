@@ -9,6 +9,4 @@ android:
     - android-21
     - extra
    
-install:
-	android update project -p /home/travis/build/emptyflash/CoopDJ
-   
+install: android update project -p /home/travis/build/emptyflash/CoopDJ
